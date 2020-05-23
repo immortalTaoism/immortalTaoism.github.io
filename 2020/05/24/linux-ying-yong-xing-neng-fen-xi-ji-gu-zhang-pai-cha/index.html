@@ -1,0 +1,1178 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Linux应用性能分析及故障排查, Java,麦当,Spring,Java面试,Springboot,开发经验,技术分享,web安全">
+    <meta name="description" content="一个成熟的可以自己写文和发布的可爱小程序！">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Linux应用性能分析及故障排查 | 知晓</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">知晓</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">知晓</div>
+        <div class="logo-desc">
+            
+            一个成熟的可以自己写文和发布的可爱小程序！
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Linux应用性能分析及故障排查</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/">
+                                <span class="chip bg-color">故障排查</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                                <span class="chip bg-color">性能分析</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Linux/" class="post-category">
+                                Linux
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-05-24
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>本文核心内容：</p>
+<ul>
+<li>Linux性能分析</li>
+<li>故障模拟和混沌工厂</li>
+<li>故障分析和解决</li>
+</ul>
+<h2 id="一、Linux性能分析"><a href="#一、Linux性能分析" class="headerlink" title="一、Linux性能分析"></a>一、Linux性能分析</h2><p>上图、性能优化命令速查，图片较大，建议下载回本地</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-9aa8608c04184eb6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="性能优化命令速查"></p>
+<h3 id="1-1-什么是Linux性能问题"><a href="#1-1-什么是Linux性能问题" class="headerlink" title="1.1 什么是Linux性能问题"></a>1.1 什么是Linux性能问题</h3><ul>
+<li>CPU使用率过高 00%！！！</li>
+<li>CPU负载过高</li>
+<li>内存溢出</li>
+<li>磁盘空间不够</li>
+<li>网络宽带被打满</li>
+</ul>
+<p>是系统资源不够？还是程序写的有问题？</p>
+<h3 id="1-2-Linux下四大性能指标"><a href="#1-2-Linux下四大性能指标" class="headerlink" title="1.2 Linux下四大性能指标"></a>1.2 Linux下四大性能指标</h3><ul>
+<li>内存</li>
+<li>CPU</li>
+<li>磁盘</li>
+<li>带宽</li>
+</ul>
+<h3 id="1-3-CPU性能指标"><a href="#1-3-CPU性能指标" class="headerlink" title="1.3 CPU性能指标"></a>1.3 CPU性能指标</h3><p>CPU使用率：CPU的使用率<br>平均负载：单位时间内的活跃线程数<br>用户时间：CPU在用户进程上的实际百分比<br>系统时间：CPU在内核上花费的实际百分比<br>空闲时间：系统处于在等待IO操作上的时间总和<br>等待：CPU花费在等待IO操作上的时间总和<br>Nice时间：CPU优先执行的时间百分比</p>
+<h4 id="CPU使用率和CPU负载"><a href="#CPU使用率和CPU负载" class="headerlink" title="CPU使用率和CPU负载"></a>CPU使用率和CPU负载</h4><p>CPU使用率是单位时间内CPU繁忙情况的统计，跟平均负载并不一定完全对应<br>平均负载是单位时间内的活跃进程数（处于可运行状态和不可中断状态的进程，也就是有没有获取到时间片）</p>
+<p><strong>这里举个形象的例子：</strong><br>比如我们去坐电梯，电梯一次只能坐10个人，假设现在电梯内有10个人那么负载就是刚好的*1，一部电梯就是一核CPU，10个人刚刚好，但是超过10个人，其他人就得等待，10个人先上去，剩下的人就得等待，这时候就涉及到了CPU的等待情况，CPU已经繁忙了，本来10个人CPU的繁忙是1，那么20人、30人，那么CPU的负载就是2倍、3倍、甚至是4倍，CPU的使用率就是，每一层有多少人下去，假设电梯里的10个人都是去同一层，那么这个使用率就是非常高的</p>
+<p>使用<code>top</code>命令，我们可以查询到CPU的使用率，等待，平均负载的一些情况<br><img src="https://upload-images.jianshu.io/upload_images/21601015-e6cd858721dd1e69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><strong>注意：CPU负载和CPU使用率没有直接关系！！！</strong></p>
+<h4 id="CPU负载和使用率的关系"><a href="#CPU负载和使用率的关系" class="headerlink" title="CPU负载和使用率的关系"></a>CPU负载和使用率的关系</h4><ul>
+<li><p>CPU密集型进程，使用大量的CPU会导致平均负载升高，此时这两者是一致的</p>
+</li>
+<li><p>I/O密集型进程，等待I/IO也会导致平均负载升高，但CPU使用率不一定很高</p>
+</li>
+<li><p>大量等待CPU的进程调度也会导致平均负载升高，此时的CPU使用率也会比较高</p>
+</li>
+</ul>
+<p>所以我们可以知道，辨别一个程序是不是耗费CPU，就要看它是CPU密集型还是I/O密集型，CPU密集型就是程序执行大量的计算，这个时候CPU的使用率会非常高、而I/O密集型就是程序会读取大量的I/O，比如网络间传输大文件，或者是Mysql全表扫描的情况，这个CPU负载非常高，但是CPU使用率很低，因为这个时候一直在等待I/O。</p>
+<p><strong>注意：CPU负载和CPU使用率没有直接关系！！！</strong></p>
+<h4 id="CPU上下文切换"><a href="#CPU上下文切换" class="headerlink" title="CPU上下文切换"></a>CPU上下文切换</h4><ul>
+<li><p>CPU寄存器是CPU内置的容量小，但速度极快的内存。</p>
+</li>
+<li><p>程序计数器用来存储CPU正在执行的指令位置，即将执行的下一条指令位置，这些都是CPU执行任务前，要依赖的环境，也叫做CPU上下文。</p>
+</li>
+<li><p>上下文切换，就是先把前一个任务的CPU上下文，保存起来，然后加载新任务的上下文到寄存器和计数器中，才开始运行新任务</p>
+</li>
+</ul>
+<h4 id="上下文切换的次数"><a href="#上下文切换的次数" class="headerlink" title="上下文切换的次数"></a>上下文切换的次数</h4><p><strong>尽量减少CPU的上下文切换！！！</strong><br><strong>上下文切换的几类</strong>：</p>
+<ul>
+<li>进程上下文切换</li>
+<li>线程上下文切换<ul>
+<li>中断上下文切换</li>
+</ul>
+</li>
+</ul>
+<p><strong>进程上下文切换</strong><br>举例：<br>假设我们程序先执行的<code>thread1</code> —&gt; 下个时间片轮到<code>thread2</code>，那么就是<code>进程1</code> —&gt; <code>进程2</code>，这也就是进程之间的切换<br><img src="https://upload-images.jianshu.io/upload_images/21601015-98ce4fe5d214b4eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="进程上下文切换"></p>
+<p><strong>线程上下文切换</strong><br>举例：<br><code>thread1</code> —&gt; <code>thread3</code>，这个时候进程内共享的上下文信息，不需要去加载，但是呢，需要切换每个线程栈的信息，这个时候就是线程的上下切换<br><img src="https://upload-images.jianshu.io/upload_images/21601015-98ce4fe5d214b4eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="进程上下文切换"></p>
+<p><strong>中断上下文切换</strong><br>这里涉及到内核的中断，就是CPU暂停正在执行的程序，保存状态，也就是中断它，然后在CPU处理完后会回到断点继续执行，跟进程上下文切换一样，中断上下文切换也需要消耗CPU</p>
+<h4 id="如何分析上下文切换"><a href="#如何分析上下文切换" class="headerlink" title="如何分析上下文切换"></a>如何分析上下文切换</h4><p><strong>执行vmstat命令，查看系统整体情况</strong><br>cs（context switch）是每秒上下文切换的次数<br>in（interrupt）是每秒中断的次数<br>r （Running or Runnable）是就绪队列的长度，也就是正在运行和等待CPU的进程数<br>b（Blocked）则是处于不可中断睡眠状态的进程数</p>
+<blockquote>
+<p>vmstat 5<br>注：5这个参数是指我们多长时间再去采样刷新一次信息</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-1c9aa45e81d43d64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vmstat "></p>
+<h4 id="CPU负载高、使用率低？"><a href="#CPU负载高、使用率低？" class="headerlink" title="CPU负载高、使用率低？"></a>CPU负载高、使用率低？</h4><p><strong>产生原因</strong><br>等待磁盘I/O完成的进程过多，导致进程队列长度过大，但是cpu运行的进程却很少，这样就体现到负载过大了，cpu使用率低</p>
+<p><strong>常见场景</strong><br>磁盘读写请求过多导致大量IO等待<code>Mysql死锁</code>、<code>Mysql全表扫描</code></p>
+<h4 id="什么样的指标才是合理的使用CPU"><a href="#什么样的指标才是合理的使用CPU" class="headerlink" title="什么样的指标才是合理的使用CPU"></a>什么样的指标才是合理的使用CPU</h4><p><strong>CPU使用率高、负载同时也高，是完全的CPU使用</strong><br>像我们常说的<code>高性能</code>不只是说我们的<code>qps</code>上去了，而是要我们单机的CPU使用率达到了最优，这个时候才是高性能、否则就是浪费机器，用机器堆出来的高性能。</p>
+<p>负载最优业界两种指标：</p>
+<ul>
+<li><ol>
+<li>CPU负载小于核数*0.7</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>CPU负载小于核数-1</li>
+</ol>
+</li>
+</ul>
+<h4 id="如何分析CPU"><a href="#如何分析CPU" class="headerlink" title="如何分析CPU"></a>如何分析CPU</h4><ul>
+<li><ol>
+<li>查看CPU核数</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>查CPU负载和CPU使用率</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>查看进程CPU使用情况</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>查看线程上下文切换情况</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>查看线程的CPU使用情况</li>
+</ol>
+</li>
+</ul>
+<p><strong>注：这里感兴趣的可以自行去了解查询资料</strong></p>
+<h3 id="1-4-内存性能指标"><a href="#1-4-内存性能指标" class="headerlink" title="1.4 内存性能指标"></a>1.4 内存性能指标</h3><p>空闲内存<br>Swap使用率<br>缓冲和缓存<br>Slabs描述的内核使用量<br>活动和非活动内存</p>
+<blockquote>
+<p>free -m</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-61ab935aca776723.gif?imageMogr2/auto-orient/strip" alt="1366178220_5505.gif"></p>
+<h4 id="理解Cached"><a href="#理解Cached" class="headerlink" title="理解Cached"></a>理解Cached</h4><p> cached通常属于available部分（该数据3.14内核之后提供，procps-ng较新版本也显示）,也就是可用内存。什么时候程序需要了，什么时候拿去用。</p>
+<h4 id="理解Swap"><a href="#理解Swap" class="headerlink" title="理解Swap"></a>理解Swap</h4><p>简单来讲，就是用硬盘的一块空间来当做内存使用。</p>
+<p>内存不足时，会使用Swap，把进程暂时不用的数据存储到磁盘中</p>
+<p>Swap会导致严重的性能问题</p>
+<h4 id="理解Cached过大是怎么回事？"><a href="#理解Cached过大是怎么回事？" class="headerlink" title="理解Cached过大是怎么回事？"></a>理解Cached过大是怎么回事？</h4><p>使用Nginx、Netty时Cached用量过大，为什么？</p>
+<blockquote>
+<p>这些都是高性能的网络I/O程序，并且还要记日志的，这个时候网络I/O和磁盘I/O都是需要做临时存储，做缓存的</p>
+</blockquote>
+<p><strong>清空cached，cached是系统为了提升I/O性能给你缓存下来的，是可以清空的！</strong><br>清空cached是不会影响系统数据的！</p>
+<blockquote>
+<p>echo 1 &gt; /proc/sys/vm/drop_caches</p>
+</blockquote>
+<h3 id="1-5-IO性能指标"><a href="#1-5-IO性能指标" class="headerlink" title="1.5 IO性能指标"></a>1.5 IO性能指标</h3><ul>
+<li>磁盘使用率</li>
+<li>IO饱和度</li>
+<li>IOPS</li>
+<li>吞吐量</li>
+<li>响应时间</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-247adcdac6c397fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IO性能指标"></p>
+<h4 id="顺序读写和随机读写"><a href="#顺序读写和随机读写" class="headerlink" title="顺序读写和随机读写"></a>顺序读写和随机读写</h4><p>顺序读写和随机读写，我们一般称为顺序IO、随机IO。<br><strong>顺序IO：</strong> 可以通过预读来将一部分数据提前加载到内存中<br><strong>随机IO：</strong> 需要多次寻址</p>
+<p>举例:为什么Kafka性能高，顺序写（追加写）它是连续的</p>
+<h4 id="标准IO、直接IO、MMAP"><a href="#标准IO、直接IO、MMAP" class="headerlink" title="标准IO、直接IO、MMAP"></a>标准IO、直接IO、MMAP</h4><p><strong>标准IO：</strong>缓存IO、系统默认IO<br><strong>直接IO：</strong>直接读取硬盘（直接IO+异步IO）<br><strong>mmap：</strong> 内存映射</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-c318b78e81050206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h4 id="页缓存"><a href="#页缓存" class="headerlink" title="页缓存"></a>页缓存</h4><p>持久化应该怎么做？</p>
+<ul>
+<li>方法一：来一行，持久化一行。</li>
+<li>方法二：来一行，内存中记录下来，累计一批，刷盘持久化！</li>
+</ul>
+<p>Kafka —&gt;写入页缓存—&gt;磁盘</p>
+<h4 id="线上磁盘最常出的问题"><a href="#线上磁盘最常出的问题" class="headerlink" title="线上磁盘最常出的问题"></a>线上磁盘最常出的问题</h4><p>磁盘可用空间不足，怎么办？<br>首页想到的是什么？清理日志！！！<br>如果清理了日志，还是不行，那么就寻址存在的大文件</p>
+<blockquote>
+<p>du -h –max-depth=1</p>
+</blockquote>
+<h4 id="什么地方容易出现IO问题？"><a href="#什么地方容易出现IO问题？" class="headerlink" title="什么地方容易出现IO问题？"></a>什么地方容易出现IO问题？</h4><ul>
+<li>中间件</li>
+<li>消息队列Kafka</li>
+<li>搜索引擎ElasticSearch</li>
+<li>数据库Mysql</li>
+</ul>
+<p><strong>应用</strong><br>大批量日志打印（同步打印，异步打印）</p>
+<blockquote>
+<p>iostat</p>
+</blockquote>
+<p>更多我们可以查看第一张图的速查表！！！</p>
+<h4 id="好用的磁盘IO性能排查工具"><a href="#好用的磁盘IO性能排查工具" class="headerlink" title="好用的磁盘IO性能排查工具"></a>好用的磁盘IO性能排查工具</h4><p><strong>iostat：</strong>查看块设备维度的磁盘IO情况<br><strong>pidstat：</strong>查看进程级别的资源情况<br><strong>iotop：</strong>查看磁盘整体情况和各进程情况</p>
+<p>先通过iostat查看整体的磁盘IO情况<br>在结合iotop和pidstat分析具体的进程情况</p>
+<h3 id="1-6-网络性能指标"><a href="#1-6-网络性能指标" class="headerlink" title="1.6 网络性能指标"></a>1.6 网络性能指标</h3><p><strong>宽带：</strong>百兆、千兆<br><strong>吞吐量：</strong><br> <strong>延迟：</strong>网络发起 - 收到响应的耗时<br><strong>PPS：</strong>Package Per Second，每秒传输的包数<br><strong>网络可用性：</strong>网络通不通<br><strong>并发连接数：</strong><br><strong>丢包率：</strong>网络故障、发生n次，失败m次</p>
+<h4 id="网络可用性"><a href="#网络可用性" class="headerlink" title="网络可用性"></a>网络可用性</h4><p>网络通不通，先来ping一ping<br><img src="https://upload-images.jianshu.io/upload_images/21601015-aa9d72eecec8c3b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ping"></p>
+<p>ping不通（先排除不让ping的情况），原因排查，测试网络路由情况，断在那里？<br><code>traceroute</code>，网络路由情况，一览无遗！！！</p>
+<h4 id="DNS查询"><a href="#DNS查询" class="headerlink" title="DNS查询"></a>DNS查询</h4><blockquote>
+<p>nslookup <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></p>
+</blockquote>
+<h4 id="网卡配置查看"><a href="#网卡配置查看" class="headerlink" title="网卡配置查看"></a>网卡配置查看</h4><p>要查看网络配置，通过<code>ipconfig</code> | <code>ip addr</code>查看网卡信息和网络新。</p>
+<h2 id="二、故障模拟和混沌工厂"><a href="#二、故障模拟和混沌工厂" class="headerlink" title="二、故障模拟和混沌工厂"></a>二、故障模拟和混沌工厂</h2><h3 id="2-1-模拟故障工具"><a href="#2-1-模拟故障工具" class="headerlink" title="2.1 模拟故障工具"></a>2.1 模拟故障工具</h3><p>Sysbench：<a href="https://github.com/akopytov/sysbench" target="_blank" rel="noopener">https://github.com/akopytov/sysbench</a></p>
+<p>模拟20个线程，压测3分钟</p>
+<blockquote>
+<p>sysbench –threads=20 –time=180 threads run</p>
+</blockquote>
+<p>然后我们通过top和vmstat查看</p>
+<blockquote>
+<p>top</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-c12966b5746385c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="top"></p>
+<blockquote>
+<p>vmstat 2</p>
+</blockquote>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-270d805671fd854a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vmstat"></p>
+<h4 id="新时代的故障注入工具——混沌工程"><a href="#新时代的故障注入工具——混沌工程" class="headerlink" title="新时代的故障注入工具——混沌工程"></a>新时代的故障注入工具——混沌工程</h4><p>混沌工程是一门新兴的技术学科，他的初衷是通过实验性的方法，让人们建立对于复杂分布式系统在生产中抵御突发事件能力的信心。          - -混沌工程原则</p>
+<h4 id="故障演练"><a href="#故障演练" class="headerlink" title="故障演练"></a>故障演练</h4><h4 id="ChaosBlade"><a href="#ChaosBlade" class="headerlink" title="ChaosBlade"></a>ChaosBlade</h4><p>ChaosBlade 是一款遵循混沌工程实验原理，建立在阿里巴巴近十年故障测试和演练实践基础上，并结合了集团各业务的最佳创意和实践，提供丰富故障场景实现，帮助分布式系统提升容错性和可恢复性的混沌工程工具。</p>
+<p><a href="https://github.com/chaosblade-io/chaosblade/blob/master/README_CN.md" target="_blank" rel="noopener">https://github.com/chaosblade-io/chaosblade/blob/master/README_CN.md</a></p>
+<p>参考文章：<br><a href="https://blog.csdn.net/u013256816/article/details/99917021" target="_blank" rel="noopener">https://blog.csdn.net/u013256816/article/details/99917021</a></p>
+<p><a href="https://www.cnblogs.com/pigpdong/p/10932415.html" target="_blank" rel="noopener">https://www.cnblogs.com/pigpdong/p/10932415.html</a></p>
+<h2 id="三、故障分析和解决"><a href="#三、故障分析和解决" class="headerlink" title="三、故障分析和解决"></a>三、故障分析和解决</h2><h3 id="3-1-分析CPU问题"><a href="#3-1-分析CPU问题" class="headerlink" title="3.1 分析CPU问题"></a>3.1 分析CPU问题</h3><p><strong>1. top命令分析上下文切换</strong><br><strong>2. vmstat分析上下文切换</strong><br><strong>3. pidstat分析上下文切换和CPU使用情况</strong><br><strong>4. 通过ps获取进程ID</strong><br><strong>5. strace跟踪进程情况</strong></p>
+<p>这里就不截图了，文章的核心是提供思路，而这些命令相信大家都基本了解过，如果有不了解的，可以查阅一下资料</p>
+<h3 id="3-2-优化CPU问题"><a href="#3-2-优化CPU问题" class="headerlink" title="3.2 优化CPU问题"></a>3.2 优化CPU问题</h3><p><strong>1. 程序减少不必要的工作</strong><br><strong>2. 程序减少循环层次、减少递归</strong><br><strong>3. 优化算法</strong><br><strong>4. 异步处理，防止阻塞</strong><br><strong>5. 善用缓存，防止IO等待</strong><br><strong>6. CPU绑定（nginx绑定CPU）</strong><br><strong>7. 限制CPU资源（cgroup，docker）</strong></p>
+<h3 id="3-3-监控"><a href="#3-3-监控" class="headerlink" title="3.3 监控"></a>3.3 监控</h3><p><strong>CPU需要监控</strong><br><strong>内存需要监控</strong><br><strong>磁盘空间需要监控</strong><br>….<br>监控之后，程序还要告警，通知我们处理问题！！！</p>
+<h3 id="color-green-Linux公开学习视频推荐：-https-ke-qq-com-course-434219"><a href="#color-green-Linux公开学习视频推荐：-https-ke-qq-com-course-434219" class="headerlink" title="$\color{green}{Linux公开学习视频推荐：}$https://ke.qq.com/course/434219"></a>$\color{green}{Linux公开学习视频推荐：}$<a href="https://ke.qq.com/course/434219" target="_blank" rel="noopener">https://ke.qq.com/course/434219</a></h3><h3 id="当然也可以加群857565362一起学习共同进步"><a href="#当然也可以加群857565362一起学习共同进步" class="headerlink" title="当然也可以加群857565362一起学习共同进步"></a>当然也可以加群857565362一起学习共同进步</h3>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">麦当</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://javaknow.org/2020/05/24/linux-ying-yong-xing-neng-fen-xi-ji-gu-zhang-pai-cha/">http://javaknow.org/2020/05/24/linux-ying-yong-xing-neng-fen-xi-ji-gu-zhang-pai-cha/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">麦当</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/">
+                                    <span class="chip bg-color">故障排查</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                                    <span class="chip bg-color">性能分析</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/05/24/linux-chang-jian-mian-shi-ti-zong-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Linux常见面试题总结">
+                        
+                        <span class="card-title">Linux常见面试题总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、说下Linux基本常用的命令？ls 、cat、tail、find、free、netstat、df -h
+二、linux系统中如何查看日志使用tail命令，查看实时日志用-f参数，也可以使用-n指定显示多少行
+三、如何查询cpu使用率？使
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                        <span class="chip bg-color">面试题</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/05/24/linux-ji-chu-he-chang-yong-ming-ling/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="Linux基础和常用命令">
+                        
+                        <span class="card-title">Linux基础和常用命令</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、什么是LinuxLinux是一种自由和开放源代码的类UNIX操作系统。
+是linus在1991年10月5日首次发布。
+开放的、子域的遵循GNU许可。
+任何个人和机构都可以自由的使用Linux的所有底层源码
+二、什么是发行版Linux发行
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">麦当</a>
+            |&nbsp;Powered by&nbsp;<a href="http://javaknow.org/" target="_blank">JavaKnow</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "5";
+                    var startDate = "25";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/immortalTaoism" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:9593169@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=9593169" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 9593169" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
