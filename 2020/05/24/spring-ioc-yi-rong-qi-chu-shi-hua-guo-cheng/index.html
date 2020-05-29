@@ -464,7 +464,7 @@
 <p>​    Spring通过定义BeanDefinition来管理Spring应用中的各种对象以及它们之间的相互依赖关系。</p>
 <p>对于Ioc容器来说，BeanDefinition就是对依赖反转模式中管理的对象依赖关系和数据抽象，也是容器实现依赖反转功能的核心数据结构，依赖反转功能都是围绕对这个BeanDefinition的处理完成的</p>
 <p><strong>可以看图理解一下</strong></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/21601015-66def1da202a1698.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-66def1da202a1698.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p>全的类图，方便梳理类之间的关系<br><img src="https://upload-images.jianshu.io/upload_images/21601015-998c9f707bc0df4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ApplicationContext.png"></p>
 <h2 id="三、从ClassPathXmlApplicationContext开始分析"><a href="#三、从ClassPathXmlApplicationContext开始分析" class="headerlink" title="三、从ClassPathXmlApplicationContext开始分析"></a>三、从ClassPathXmlApplicationContext开始分析</h2><p>​    这个载入过程，相当于把定义的BeanDefinition在IoC容器中转化为一个Spring内部表示的数据结构的过程。Ioc容器对Bean的管理和依赖注入功能的实现，是通过对其持有的BeanDefinition进行各种相关操作完成的。这些BeanDefinition数据在容器中通过一个HashMap来保持和维护。</p>
 <p>​    下面，我们通过ClassPathXmlApplicationContext入手来分析一下IoC容器的初始化过程</p>

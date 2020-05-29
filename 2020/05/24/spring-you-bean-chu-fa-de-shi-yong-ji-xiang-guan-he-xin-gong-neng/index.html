@@ -545,7 +545,7 @@ public class ApplicationContextMain {
     <span class="token punctuation">}</span>
 
 <span class="token punctuation">}</span></code></pre>
-<p><strong>类图预览</strong><br><img src="https://upload-images.jianshu.io/upload_images/21601015-f6dbcb3161bb68ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><strong>类图预览</strong><br><img src="https://upload-images.jianshu.io/upload_images/21601015-f6dbcb3161bb68ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <h3 id="Spring提供的两种容器类型，ApplicationContext和BeanFactory区别"><a href="#Spring提供的两种容器类型，ApplicationContext和BeanFactory区别" class="headerlink" title="Spring提供的两种容器类型，ApplicationContext和BeanFactory区别"></a>Spring提供的两种容器类型，ApplicationContext和BeanFactory区别</h3><blockquote>
 <p>两者都是用来从容器中获取spring beans的，不同之处在于BeanFactory使用的是懒加载，也就是在我们通过getBean()调用它们时才会进行实例化，而ApplicationContext继承自BeanFactory，与前者不同的在于ApplicationContext在启动时就将所有beans全部实例化了</p>
 <p>如何选择使用</p>
@@ -570,7 +570,7 @@ public class ApplicationContextMain {
 <p>引用对象</p>
 </li>
 <li><p>constructor-arg</p>
-<p>构造函数，例：<constructor-arg index="1" type="float" value="20.00" /></p>
+<p>构造函数，例：<constructor-arg index="1" type="float" value="20.00"></constructor-arg></p>
 <ul>
 <li><p>index 构造函数中第几个参数</p>
 </li>
@@ -786,7 +786,7 @@ public class ApplicationContextMain {
 <p>为@Configuration与@ComponentScan的组合注解，可以替代这两个注解</p>
 </li>
 </ul>
-<h3 id="3-示例演示-1"><a href="#3-示例演示-1" class="headerlink" title="3.示例演示"></a>3.示例演示</h3><p>预览一下结构<br><img src="https://upload-images.jianshu.io/upload_images/21601015-d8ea500effcaefc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="3-示例演示-1"><a href="#3-示例演示-1" class="headerlink" title="3.示例演示"></a>3.示例演示</h3><p>预览一下结构<br><img src="https://upload-images.jianshu.io/upload_images/21601015-d8ea500effcaefc5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>User</strong></p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> org<span class="token punctuation">.</span>wh<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>model<span class="token punctuation">;</span>
 

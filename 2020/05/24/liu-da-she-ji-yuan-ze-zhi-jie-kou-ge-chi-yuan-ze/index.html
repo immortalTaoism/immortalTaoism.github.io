@@ -418,7 +418,7 @@
             <div id="articleContent">
                 <h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>1、接口尽量细化，化为最小功能单元<br>2、不使用的接口不要依赖<br>拆分接口首先要遵循单一职责原则</p>
 <p>变动概率增加了，风险也就增加了</p>
-<p>比如下面这个<font color=blue>UserController.saveOrUpdateUser()</font> 保存或修改，不管是保存还是修改只要有变动，就需要改动<font color=blue>saveOrUpdateUser()</font>方法，这样变动概率增加了，风险也就增加了</p>
+<p>比如下面这个<font color="blue">UserController.saveOrUpdateUser()</font> 保存或修改，不管是保存还是修改只要有变动，就需要改动<font color="blue">saveOrUpdateUser()</font>方法，这样变动概率增加了，风险也就增加了</p>
 <pre><code>@Controller
 @RequestMapping(&quot;/user&quot;)
 public class UserController {

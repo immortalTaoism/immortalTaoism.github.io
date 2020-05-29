@@ -432,7 +432,7 @@
 <li>实现Lock接口</li>
 <li>组合AQS进行并发状态控制</li>
 </ol>
-<p><img src="/.org//Node.png" alt></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-069370fcd6879fd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>为什么使用双向链表实现？</strong></p>
 <p>因为链表移除和添加比较方便，只需要改动prev和next节点的指向即可，移除和添加都只需要操作一次，时间复杂度为O(1)。如果使用数组去实现，随着数据量的增加每次操作需要移动的次数也会更重</p>
 <p><strong>waitStatus的int值是什么？有什么用？</strong></p>
@@ -470,10 +470,10 @@
     <span class="token punctuation">}</span></code></pre>
 <p><strong>CANCELLED：</strong>由锁状态变成取消状态，这个时候就可以被gc回收了</p>
 <p><strong>SIGNAL:</strong>  插入名为4的节点到3和2之间，然后将4节点的前继节点也就是2的waitStatus改成SIGNAL状态</p>
-<p><img src="/.org//SIGNAL.png" alt></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-88349b458d24b9c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>其余的节点相信大家直接看释义就能明白了</strong></p>
-<p><img src="/.org//waitStatus.png" alt><br><img src="/.org//sy.png" alt></p>
-<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p><img src="/.org//AQS%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="AQS流程图.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-929855a5f642e5fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/21601015-e6dc7783a20436d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p><img src="https://upload-images.jianshu.io/upload_images/21601015-5c59f8c4d7a23734.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AQS流程图.png"></p>
 <p><strong>参考流程图，我们按照程序流程来分析源代码</strong></p>
 <p><strong>ReentrantLock</strong></p>
 <blockquote>
@@ -767,7 +767,7 @@
     <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre>
 <p><strong>if (ws &gt; 0) 图示</strong></p>
-<p><img src="/.org//ws.png" alt></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-6b0ff38c21d3a914.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <h3 id="线程挂起阻塞"><a href="#线程挂起阻塞" class="headerlink" title="线程挂起阻塞"></a>线程挂起阻塞</h3><p>挂起线程</p>
 <pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
      * Convenience method to park and then check if interrupted
@@ -954,37 +954,76 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/30/test2/">
+                <a href="/2020/05/30/aqs-yuan-li-pou-xi-ji-suo-shi-xian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="test2">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="AQS原理剖析">
                         
-                        <span class="card-title">test2</span>
+                        <span class="card-title">AQS原理剖析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            AQS结构剖析
+双向链表 + waitStatus的int值
 
+锁的结构：
+
+实现Lock接口
+组合AQS进行并发状态控制
+
+
+为什么使用双向链表实现？
+因为链表移除和添加比较方便，只需要改动prev和next节点的指向即可，移除和添加都只
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-30
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            麦当
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-category">
+                                    多线程
+                                </a>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%B9%B6%E5%8F%91/" class="post-category">
+                                    并发
+                                </a>
+                            
+                            <a href="/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%B9%B6%E5%8F%91/QAS/" class="post-category">
+                                    QAS
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+                        <span class="chip bg-color">多线程</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+                        <span class="chip bg-color">并发编程</span>
+                    </a>
+                    
+                    <a href="/tags/AQS%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90/">
+                        <span class="chip bg-color">AQS原理剖析</span>
+                    </a>
+                    
                 </div>
                 
             </div>

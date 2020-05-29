@@ -410,11 +410,11 @@
             <div id="articleContent">
                 <h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><p>#####一、打开exchange shell，使用如下命令提升administrator账号为exchange超级管理，让它具有对其他用户操作的权限</p>
 <pre><code>New-ManagementRoleAssignment -Name:impersonationAssignmentName -Role:ApplicationImpersonation -User:administrator</code></pre><p>注:如果以上命令执行失败，请尝试先执行下面这条命令，在执行上面的</p>
-<pre><code>Remove-ManagementRoleAssignment &quot;impersonationAssignmentName&quot;</code></pre><br />
+<pre><code>Remove-ManagementRoleAssignment &quot;impersonationAssignmentName&quot;</code></pre><br>
 #####二、exchange server 可以进行web访问
 
 <pre><code>https://xxxx.com/EWS/Exchange.asmx</code></pre><pre><code>https://xxxx.com/owa</code></pre><p>#####三、添加邮箱账户<br>添加多个邮箱账户，同时给发这几个用户分别发送不同数量的邮件，记得不要查看，因为要读取未读邮件</p>
-<br />
+<br>
 2、关键代码
 ---
 
@@ -461,7 +461,7 @@ public class ReaderExchanageUnreadMail {
         }
         return count;
     }
-}</code></pre><p>当然，为了方便调用，具体代码我已经打包成jar，你可以在文章末尾的链接中下载<br><br /><br>3、Reum.jar的使用</p>
+}</code></pre><p>当然，为了方便调用，具体代码我已经打包成jar，你可以在文章末尾的链接中下载<br><br><br>3、Reum.jar的使用</p>
 <hr>
 <pre><code>public class PropertiesParam {
     private String aduser;
@@ -506,7 +506,7 @@ public class ReaderExchanageUnreadMail {
             e.printStackTrace();
         }
 
-    }</code></pre><p>jar下载地址：链接: <a href="https://pan.baidu.com/s/1SOioBPlEDyTl1qqCHjMDmg" target="_blank" rel="noopener">https://pan.baidu.com/s/1SOioBPlEDyTl1qqCHjMDmg</a> 密码: 3qh1<br>备用下载地址：<a href="https://download.csdn.net/download/immortalitywang/10401841" target="_blank" rel="noopener">https://download.csdn.net/download/immortalitywang/10401841</a><br><br /><br>参考链接：<a href="https://blog.csdn.net/feihu19851111/article/details/17135825" target="_blank" rel="noopener">https://blog.csdn.net/feihu19851111/article/details/17135825</a></p>
+    }</code></pre><p>jar下载地址：链接: <a href="https://pan.baidu.com/s/1SOioBPlEDyTl1qqCHjMDmg" target="_blank" rel="noopener">https://pan.baidu.com/s/1SOioBPlEDyTl1qqCHjMDmg</a> 密码: 3qh1<br>备用下载地址：<a href="https://download.csdn.net/download/immortalitywang/10401841" target="_blank" rel="noopener">https://download.csdn.net/download/immortalitywang/10401841</a><br><br><br>参考链接：<a href="https://blog.csdn.net/feihu19851111/article/details/17135825" target="_blank" rel="noopener">https://blog.csdn.net/feihu19851111/article/details/17135825</a></p>
 
             </div>
             <hr/>

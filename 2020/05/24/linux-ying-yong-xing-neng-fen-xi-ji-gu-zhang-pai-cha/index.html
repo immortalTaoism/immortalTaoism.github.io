@@ -538,7 +538,7 @@
 <h4 id="顺序读写和随机读写"><a href="#顺序读写和随机读写" class="headerlink" title="顺序读写和随机读写"></a>顺序读写和随机读写</h4><p>顺序读写和随机读写，我们一般称为顺序IO、随机IO。<br><strong>顺序IO：</strong> 可以通过预读来将一部分数据提前加载到内存中<br><strong>随机IO：</strong> 需要多次寻址</p>
 <p>举例:为什么Kafka性能高，顺序写（追加写）它是连续的</p>
 <h4 id="标准IO、直接IO、MMAP"><a href="#标准IO、直接IO、MMAP" class="headerlink" title="标准IO、直接IO、MMAP"></a>标准IO、直接IO、MMAP</h4><p><strong>标准IO：</strong>缓存IO、系统默认IO<br><strong>直接IO：</strong>直接读取硬盘（直接IO+异步IO）<br><strong>mmap：</strong> 内存映射</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/21601015-c318b78e81050206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/21601015-c318b78e81050206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <h4 id="页缓存"><a href="#页缓存" class="headerlink" title="页缓存"></a>页缓存</h4><p>持久化应该怎么做？</p>
 <ul>
 <li>方法一：来一行，持久化一行。</li>
